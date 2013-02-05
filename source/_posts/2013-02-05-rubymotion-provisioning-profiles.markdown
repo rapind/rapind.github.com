@@ -24,6 +24,6 @@ See this [stackoverflow Discussion](http://stackoverflow.com/questions/13539743/
 
 After a [little light reading](https://github.com/HipByte/RubyMotion/blob/master/lib/motion/project/config.rb) I discovered that the RubyMotion build will check for a default profile named "iOS Team Provisioning Profile".
 
-So I simply had to create a new provisioning profile via the [iOS provisioning portal](https://developer.apple.com/ios/manage/overview/index.action) named "iOS Team Provisioning Profile" and containing the device(s) I want to be able to run development builds on.
+So we simply need to create a new provisioning profile via the [iOS provisioning portal](https://developer.apple.com/ios/manage/overview/index.action) named "iOS Team Provisioning Profile" and containing the device(s) we want to be able to run development builds on.
 
 

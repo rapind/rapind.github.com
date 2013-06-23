@@ -3,7 +3,7 @@ layout: post
 title: "iOS Development with Ruby Motion"
 date: 2012-10-24 1:32
 comments: true
-categories: [iOS, Ruby, Coding]
+categories: [iOS, Ruby, Programming]
 ---
 
 I've been building an iOS app with RubyMotion for a while now, and the verdict is...

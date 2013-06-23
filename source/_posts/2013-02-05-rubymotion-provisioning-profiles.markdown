@@ -3,7 +3,7 @@ layout: post
 title: "RubyMotion Provisioning Profiles"
 date: 2013-02-05 14:16
 comments: true
-categories: [Ruby, iOS, Coding, Provisioning]
+categories: [Ruby, iOS, Programming, Provisioning]
 ---
 
 I recently ran into an issue with RubyMotion where I couldn't build to a development device without explicitly setting the provisioning profile in the Rakefile. Not only is this annoying, but it's a big problem for team development because you'll always want to check your Rakefile into source control and each team member would have a different Rakefile.

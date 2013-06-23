@@ -3,7 +3,7 @@ layout: post
 title: "Quality Versus Speed"
 date: 2010-04-29 22:02
 comments: true
-categories: [Coding, Process]
+categories: [Programming, Process]
 ---
 
 The quality versus speed question is one that constantly comes up whether you're a freelancer or a salaryman, and the answer is usually situational. However, by situational I don't mean given a specific project. Instead I think it's more about your personality and commitment as a developer.

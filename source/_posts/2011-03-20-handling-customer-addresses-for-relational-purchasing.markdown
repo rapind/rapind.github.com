@@ -3,7 +3,7 @@ layout: post
 title: "Handling Customer Addresses for Relational Purchasing"
 date: 2011-03-20 15:16
 comments: true
-categories: [Coding, Database]
+categories: [Programming, Database]
 ---
 
 A problem I often run into whenver I build an ordering system is how best to store addresses for customers and orders in an ordering system (like an ecommerce store).

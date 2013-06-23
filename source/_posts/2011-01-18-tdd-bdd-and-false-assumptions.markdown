@@ -3,7 +3,7 @@ layout: post
 title: "TDD, BDD, and False Assumptions"
 date: 2011-01-18 14:31
 comments: true
-categories: [Tests, Process, Coding]
+categories: [Tests, Process, Programming]
 ---
 
 After watching another *Test First* presentation related to the Ruby world I figured out what it is that bothers me the most about the *TDD Religion*.

@@ -3,7 +3,7 @@ layout: post
 title: "Learning VIM... Finally!"
 date: 2011-10-10 19:21
 comments: true
-categories: [Editor, Coding]
+categories: [Editor, Programming]
 ---
 
 I had the opportunity to work with a bunch of TDD vim hackers during the last 4-5 months over at Nulogy, and after some initial resistance I decided to jump in and learn vim. My motivation is to really see if it lives up to the hype, and more importantly because it'll make me look like a genius to the layman watching my screen (I.e. [Gary Bernhardt](https://www.destroyallsoftware.com)).

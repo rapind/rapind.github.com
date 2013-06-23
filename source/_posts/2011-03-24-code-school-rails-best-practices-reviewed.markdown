@@ -3,7 +3,7 @@ layout: post
 title: "Code School - Rails Best Practices Reviewed"
 date: 2011-03-24 7:31
 comments: true
-categories: [Rails, Ruby, Review, Coding]
+categories: [Rails, Ruby, Review, Programming]
 ---
 
 Yesterday I ran through the "Rails Best Practices" course over at [Code School](http://www.codeschool.com/).

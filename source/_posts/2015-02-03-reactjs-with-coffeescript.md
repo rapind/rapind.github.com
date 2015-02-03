@@ -36,7 +36,7 @@ var Jumbotron = React.createClass({
 
 Here's the JSX version of the same component. Quite an improvement I think, but it introduces a new syntax that seems a bit messy to me and most likely throws off your editor's syntax highlighting and functions.
 
-```jsx
+```javascript
 var Jumbotron = React.createClass({
   render: function() {
     return (
@@ -71,7 +71,7 @@ Jumbotron = React.createClass
               "Learn more »"
 ```
 
-For the sake of completeness, here's a CJSX version (CoffeeScript + JSX).
+For the sake of completeness, here's a CJSX version (CoffeeScript + JSX). Even more succinct, however again we're introducing a new syntax within our CoffeeScript which I'm not a fan of.
 ```coffeescript
 Jumbotron = React.createClass
   render: ->

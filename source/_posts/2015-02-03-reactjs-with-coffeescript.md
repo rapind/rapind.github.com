@@ -19,7 +19,9 @@ This is the HTML we'll be converting.
 <div class="jumbotron">
   <div class="container">
     <h1>Hello, world!</h1>
-    <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more »</a></p>
+    <p>
+      <a class="btn btn-primary btn-lg" href="#" role="button">Learn more »</a>
+    </p>
   </div>
 </div>
 ```
@@ -55,7 +57,9 @@ var Jumbotron = React.createClass({
       <div className="jumbotron">
         <div className="container">
           <h1>Hello, world!</h1>
-          <p><a className="btn btn-primary btn-lg" href="#" role="button">Learn more »</a></p>
+          <p>
+            <a className="btn btn-primary btn-lg" href="#" role="button">Learn more »</a>
+          </p>
         </div>
       </div>
     );
@@ -91,7 +95,9 @@ Jumbotron = React.createClass
     <div className="jumbotron">
       <div className="container">
         <h1>Hello, world!</h1>
-        <p><a className="btn btn-primary btn-lg" href="#" role="button">Learn more »</a></p>
+        <p>
+          <a className="btn btn-primary btn-lg" href="#" role="button">Learn more »</a>
+        </p>
       </div>
     </div>
 ```

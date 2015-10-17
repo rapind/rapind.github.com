@@ -1,0 +1,321 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>TDD, BDD, and False Assumptions - Dave Rapin</title>
+  <meta name="author" content="Dave Rapin">
+
+  
+  <meta name="description" content="After watching another Test First presentation related to the Ruby world I figured out what it is that bothers me the most about the TDD Religion. It &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://rapind.github.com/blog/2011/01/18/tdd-bdd-and-false-assumptions/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Dave Rapin" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-2450369-6']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Dave Rapin</a></h1>
+  
+    <h2>Mobile and Web Development</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:rapind.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="http://www.linkedin.com/in/rapind">LinkedIn</a></li>
+  <li><a href="https://github.com/rapind">Github</a></li>
+  <li><a href="http://pairshaped.ca">Pair Shaped</a></li>
+  <li><a href="http://syncroe.com">Syncroe</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">TDD, BDD, and False Assumptions</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-01-18T14:31:00-05:00" pubdate data-updated="true">Jan 18<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>After watching another <em>Test First</em> presentation related to the Ruby world I figured out what it is that bothers me the most about the <em>TDD Religion</em>.</p>
+
+<p>It seems that everytime a TDD evangelist speaks about non-test driven / traditional development they paint a completely exaggerated and unrealistic picture of what it means to not use TDD. It usually goes something like this: &#8220;You spend a year creating a specification, and then another year coding until you&#8217;ve built this monolithic application then you manually go through all of the functionality you built for another year fixing bugs etc.&#8221;. Seriously? I know we&#8217;ve all got horror tales, but come on&#8230; who in their right mind has ever worked like this even before all of the Test-first buzz back in 2000? This is a fallacy, and even coding in Fortran sounds better than being involved in this fantasy process.</p>
+
+<p>I don&#8217;t actually have a problem with TDD the practice, or BDD as a practice, or even EDD (experiment) the practice. What I do have an issue with are the religious zealots that think it solves all of their problems and will criticize anyone who doesn&#8217;t share the same beliefs. Really, it doesn&#8217;t.</p>
+
+<p>Here&#8217;s how Joe the Programmer who&#8217;s never bothered with TDD <em>actually</em> performs his work on a daily basis. He thinks about the big picture. Breaks it up into small accessible problems (basic problem solving). Dives right in and starts building out a solution to tackle one of these small problems. Then he <em>manually tests</em> his small solution to make sure it works and <em>provokes more thought</em> on how it fits into the big picture. Once he&#8217;s happy with it, he tackles the next small problem. All the time he&#8217;s constantly reevaluating the big picture, identifying new problems, speaking with the client, etc.</p>
+
+<p>Sounds a lot more reasonable than &#8220;code for a year&#8221; doesn&#8217;t it? It almost sounds like it would work really well in most scenarios. It doesn&#8217;t help sell the latest tickets to your speech on TDD though, because honestly, how much would TDD actually improve his process?</p>
+
+<p>Please, before you tell everyone how amazing the latest test / behaviour / experiment driven development methodology or tool is, watch this presentation from Rich Hickey on <em>Hammock-Driven Development</em> first and let it sink in. <a href="http://clojure.blip.tv/file/4457042/">http://clojure.blip.tv/file/4457042/</a></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Dave Rapin</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-01-18T14:31:00-05:00" pubdate data-updated="true">Jan 18<span>th</span>, 2011</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/process/'>Process</a>, <a class='category' href='/blog/categories/programming/'>Programming</a>, <a class='category' href='/blog/categories/tests/'>Tests</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://rapind.github.com/blog/2011/01/18/tdd-bdd-and-false-assumptions/" data-via="rapind" data-counturl="http://rapind.github.com/blog/2011/01/18/tdd-bdd-and-false-assumptions/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2010/12/11/better-authentication/" title="Previous Post: Better Authentication">&laquo; Better Authentication</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2011/03/20/handling-customer-addresses-for-relational-purchasing/" title="Next Post: Handling Customer Addresses for Relational Purchasing">Handling Customer Addresses for Relational Purchasing &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/10/15/meteor-with-reactjs/">Meteor and React - Part 1</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/02/03/reactjs-with-coffeescript/">Using CoffeeScript with ReactJS</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/07/04/pair-programming-remotely-vps/">Pair Programming Remotely on a VPS</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/02/05/rubymotion-provisioning-profiles/">RubyMotion Provisioning Profiles</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/10/24/ios-development-with-ruby-motion/">iOS Development with Ruby Motion</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/rapind">@rapind</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'rapind',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("rapind", 3, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/rapind" class="twitter-follow-button" data-show-count="false">Follow @rapind</a>
+  
+</section>
+
+
+
+<section class="googleplus">
+  <h1>
+    <a href="https://plus.google.com/dave@rapin.com?rel=author">
+      <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
+      Google+
+    </a>
+  </h1>
+</section>
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - Dave Rapin -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'daverapin';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://rapind.github.com/blog/2011/01/18/tdd-bdd-and-false-assumptions/';
+        var disqus_url = 'http://rapind.github.com/blog/2011/01/18/tdd-bdd-and-false-assumptions/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

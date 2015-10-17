@@ -1,0 +1,440 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Dave Rapin</title>
+  <meta name="author" content="Dave Rapin">
+
+  
+  <meta name="description" content="I think the current solutions for single-signon are completely impractical. This includes FB Connect, Google, MS, Yahoo, OpenID, etc. What makes them &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://rapind.github.com/blog/page/3/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Dave Rapin" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-2450369-6']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Dave Rapin</a></h1>
+  
+    <h2>Mobile and Web Development</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:rapind.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="http://www.linkedin.com/in/rapind">LinkedIn</a></li>
+  <li><a href="https://github.com/rapind">Github</a></li>
+  <li><a href="http://pairshaped.ca">Pair Shaped</a></li>
+  <li><a href="http://syncroe.com">Syncroe</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2010/11/24/authentication-slash-single-sign-on/">Authentication / Single Sign On</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-11-24T15:52:00-05:00" pubdate data-updated="true">Nov 24<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I think the current solutions for single-signon are completely impractical. This includes FB Connect, Google, MS, Yahoo, OpenID, etc. What makes them impractical is they require all sites to participate in a fairly complicated integration and have single points of failure which can bring down your authentication (RPX goes down etc.).</p>
+
+<p>I also happen to think the thick-client solutions (password managers) are far more practical. A password manager can maintain multiple profiles with unique auto-generated passwords so if any of the sites that stores your credentials is compromised (say they aren&#8217;t encrypting your passwords properly) the problem is contained within the compromised site since every other site uses a different generated password. This is far easier to manage as both consumer and service provider. By using a password manager you only need to remember 1 password, the one used to unlock your password manager.</p>
+
+<p>Now what would be great is if you could combine the thick client password manager concept with a cloud based redundant solution (no single point of failure) and have full integration for auto-filling fields with all major browsers.</p>
+
+<p>So let&#8217;s say you have a master account with a cloud provider like Google or Amazon etc. They provide you with a semi-thick client solution like a browser addon which maintains a connection witch can create profiles on demand for a given site and auto-fill username / password / email at your approval. The password is a very strong auto-generated key associated with the a resource identifier of the site. So that a site could do the standard email / password and include a simple meta-tag identifying it&#8217;s unique resource. This would make integration on your application optional at worst, and extremely simple at best.</p>
+
+<p>Xmarks is pretty close. It&#8217;s missing a password generator though: <a href="http://www.xmarks.com/">http://www.xmarks.com/</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2010/05/06/backing-up-your-mysql-databases-offsite/">Backing Up Your MySQL Databases Offsite</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-05-06T08:40:00-04:00" pubdate data-updated="true">May 6<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I recently came across a nifty little tool called Tarsnap.</p>
+
+<p>From the Tarsnap home page:</p>
+
+<p>Tarsnap is a secure online backup service for BSD, Linux, OS X, Solaris, Cygwin, and can probably be compiled on many other UNIX-like operating systems. The Tarsnap client code provides a flexible and powerful command-line interface which can be used directly or via shell scripts.</p>
+
+<p>Here&#8217;s a quick and easy guide to get you up and running backup up all of your MySQL databases.</p>
+
+<h3>Automate the MySQL Backup</h3>
+
+<ol>
+<li><p>In your home directory:
+<code>
+mkdir backups &amp;&amp; cd backups
+</code></p></li>
+<li><p>Download: <a href="http://sourceforge.net/projects/automysqlbackup/">http://sourceforge.net/projects/automysqlbackup/</a> to the backups directory you just created.</p></li>
+<li><p>Rename it:
+<code>
+mv automysqlbackup.sh.2.5 automysqlbackup.sh
+</code></p></li>
+<li><p>Make it executable:
+<code>
+chmod u+rwx automysqlbackup.sh
+</code></p></li>
+<li><p>Edit it:
+<code>
+nano automysqlbackup.sh
+</code></p></li>
+<li><p>Fill out your database name, password, and the names of the databases you want to backup.</p></li>
+<li><p>Look for the commented POSTBACKUP line. Add these two lines right below it (replace username with your username).</p></li>
+</ol>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>BACKUP_TIMESTAMP=$(date +"%m-%d-%Y_%T")
+</span><span class='line'>POSTBACKUP="tarsnap -c -f databases.$BACKUP_TIMESTAMP /home/username/backups"</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Install and Setup Tarsnap.</h3>
+
+<ol>
+<li><p>Follow the instructions on the Tarsnap getting started page: <a href="http://www.tarsnap.com/gettingstarted.html">http://www.tarsnap.com/gettingstarted.html</a></p></li>
+<li><p>You should have donwloaded, paid for, and installed Tarsnap before continuing.</p></li>
+<li><p>We&#8217;re going to use the tarsnap sample config (cache dir and key location).
+<code>
+cd /usr/local/etc
+cp tarsnap.conf.sample tarsnap.conf
+</code></p></li>
+<li><p>Now run your backup script:
+<code>
+sudo ./automysqlbackup.sh
+</code></p></li>
+<li><p>Check to see if you&#8217;re backup was created and stored remotely:
+<code>
+sudo tarsnap --list-archives
+</code></p></li>
+<li><p>Now we&#8217;re going to create a cronjob to run the script on a daily basis (or you could move it to your /etc/cron.daily).</p></li>
+</ol>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo crontab -e
+</span><span class='line'># backup the databases every day at 2:30 AM
+</span><span class='line'>30 2 * * * /home/deploy/backups/automysqlbackup.sh &gt; /home/deploy/cron.log</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now you&#8217;re databases are being backed up daily on a rotation keeping weekly and monthly dumps and storing them both on and off-site (encrypted).</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2010/04/29/quality-versus-speed/">Quality Versus Speed</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-04-29T22:02:00-04:00" pubdate data-updated="true">Apr 29<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>The quality versus speed question is one that constantly comes up whether you&#8217;re a freelancer or a salaryman, and the answer is usually situational. However, by situational I don&#8217;t mean given a specific project. Instead I think it&#8217;s more about your personality and commitment as a developer.</p>
+
+<p>As a freelancer you have a lot more control over the quality of your work and it&#8217;s essential to enjoying your profession. We inevitably have to deal with some unreasonable clients now and then, who want everything done yesterday and aren&#8217;t willing to compensate you appropriately for your time. So how do we deal with it?</p>
+
+<p>For me, with fixed quote work, once I agree to take a project on I simply put compensation out of my mind. If I was unable to correctly scope and quote building a quality application, it&#8217;s not going to stop me from doing my best anyways. One of the luxuries of freelancing is the authority to decide that you will do what it takes to deliver something you&#8217;re proud of. In my mind it&#8217;s just not acceptable to deliver less than my best effort, and it would stress me out not to do so. Using an agile process can also help to limit losses you may incur by misquoting projects.</p>
+
+<p>This means all of my client&#8217;s will get a great deal, even those I may have misquoted. I&#8217;ll sometimes take a loss, but for me it&#8217;s not worth the stress of building something you aren&#8217;t proud of. At the core, it&#8217;s really that simple. I get to feel good about my work and I&#8217;m still able to put food on the table even when I take a loss. I&#8217;ll learn new technologies and techniques which may eventually balance out the occasional losses.</p>
+
+<p>So to take this a little further, whenever I&#8217;m building software, there&#8217;s usually quite a few moving parts behind the scenes that the client is blissfully unaware of. That doesn&#8217;t mean they&#8217;re unimportant. In fact when I take on the work I&#8217;m essentially saying, yes I have the expertise to do this, and yes I will take care of all of the details including the more complex hidden challenges.</p>
+
+<p>For example, let&#8217;s say I&#8217;m building a storefront web application. I&#8217;m extremely focused on conversion and put together a great payment flow to reduce the friction associated with purchasing online. I&#8217;ve implemented SSL properly wherever customer information is being submitted. I&#8217;m storing their details using opt-out rather than opt-in. The customer is always being sent to the most relevant next step, and in general I&#8217;m presenting them with as little data entry fields as possible. The customer feels safe and they are able to make their payment quickly. Returning customers are delighted that it&#8217;s even faster the next time they make a purchase.</p>
+
+<p>So far this sounds like a pretty great job. The client is in total agreement. Their sales are up, CSR calls are down, and I feel like my work is appreciated.</p>
+
+<p>What the client is unaware of is how I&#8217;m storing credit card information and passwords. I could be storing them in clear text or using weak encryption (salt-less). Let&#8217;s say that I also enforced very few if any restrictions when customers choose a password, since that would increase payment friction. So we have weak or unencrypted passwords, they&#8217;re easy to crack via dictionary attacks; like &#8220;joe&#8221;, &#8220;password&#8221;, &#8220;12345&#8221;, plus they&#8217;re all associated with unencrypted credit card information.</p>
+
+<p>Now the client may never care so long as nothing <em>bad</em> happens. They&#8217;re certainly not going to pay me to implement a far more secure solution if I didn&#8217;t make room for it in my initial quote. Good enough? Well sort of&#8230; most of the time this probably goes unnoticed. Meaning the customer is happy and they didn&#8217;t have to pay me for the extra time to nail down the security (however, for this example at least, PCI enforcement is going to change that). So what&#8217;s the problem? The problem is I&#8217;m not happy. I know that some very critical mistakes have been made. Therefore I would never deliver this application until I corrected these mistakes. This isn&#8217;t actually a real world scenario, but it serves as a decent enough example of hidden complexity.</p>
+
+<p>There are many programmers like myself, who&#8217;s personality and commitment to a quality solution will simply not let them stop at good enough. Even if the client is happy and completely unaware of the insecurity of their system and the liability associated with it. These programmers will be compelled to finish the job, even if they are over budget.</p>
+
+<p>There are times though where a passionate and committed programmer can blow out a project&#8217;s budget without the customer&#8217;s best interest at heart. I&#8217;ve heard a lot of criticism in programming circles about this type of programmer. However, I&#8217;ve noticed that almost always these criticisms come from either programmers with very limited experience, or MBA types who&#8217;ve never written a line of code in their life. There is absolutely no job satisfaction in delivering inferior products. Period. The passionate and committed programmer may seem to make some things a little more complicated than they need to be, but they will learn from it, and in the end you will end up with a better and more efficient product.</p>
+
+<p>As a self-professed programming perfectionist of many years, my opinion is that there are many applications out there that I&#8217;m simply not suited to work on. I accept that this attention to details can be a strength in some scenarios and a weakness in others. There&#8217;s probably thousands of programmers that can do the same work cheaper, with less questions, and produce an equally satisfactory product in some scenarios. In fact most of them probably don&#8217;t even need to be programmers, in that they have no real interest in programming. Many projects are simply glueing together existing libraries and frameworks and require very little creative problem solving.</p>
+
+<p>I would argue that there&#8217;s nothing wrong with either of these programmer personalities. I think the market has room for both of us. There are many prototyping and proof of concept projects out there with extremely frugal owners / managers that simply aren&#8217;t willing to invest either the time or money into a great solution and are happy enough with a mess of libraries glued together behind a pretty user interface. In fact, unless the stakeholder is willing to invest their own time and effort in the project, then they&#8217;re unlikely to be happy with any solution they get, and would just frustrate the more passionate and committed developers anyways.</p>
+
+<p>In the end, I&#8217;m happy to be writing quality software that will live for a while and need to be supported and improved. I enjoy refactoring my code. There&#8217;s something extremely satisfying about it.</p>
+
+<p>As a client, if the project is your baby, and you&#8217;re very committed to it, then you will want an equal level of commitment from whoever works on it.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/blog/page/2/">Newer &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/10/15/meteor-with-reactjs/">Meteor and React - Part 1</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/02/03/reactjs-with-coffeescript/">Using CoffeeScript with ReactJS</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/07/04/pair-programming-remotely-vps/">Pair Programming Remotely on a VPS</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/02/05/rubymotion-provisioning-profiles/">RubyMotion Provisioning Profiles</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/10/24/ios-development-with-ruby-motion/">iOS Development with Ruby Motion</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/rapind">@rapind</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'rapind',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("rapind", 3, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/rapind" class="twitter-follow-button" data-show-count="false">Follow @rapind</a>
+  
+</section>
+
+
+
+<section class="googleplus">
+  <h1>
+    <a href="https://plus.google.com/dave@rapin.com?rel=author">
+      <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
+      Google+
+    </a>
+  </h1>
+</section>
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - Dave Rapin -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'daverapin';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

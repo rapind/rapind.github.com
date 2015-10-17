@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Provisioning | Dave Rapin]]></title>
+  <link href="http://rapind.github.com/blog/categories/provisioning/atom.xml" rel="self"/>
+  <link href="http://rapind.github.com/"/>
+  <updated>2015-10-17T13:08:35-04:00</updated>
+  <id>http://rapind.github.com/</id>
+  <author>
+    <name><![CDATA[Dave Rapin]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[RubyMotion Provisioning Profiles]]></title>
+    <link href="http://rapind.github.com/blog/2013/02/05/rubymotion-provisioning-profiles/"/>
+    <updated>2013-02-05T14:16:00-05:00</updated>
+    <id>http://rapind.github.com/blog/2013/02/05/rubymotion-provisioning-profiles</id>
+    <content type="html"><![CDATA[<p>I recently ran into an issue with RubyMotion where I couldn't build to a development device without explicitly setting the provisioning profile in the Rakefile. Not only is this annoying, but it's a big problem for team development because you'll always want to check your Rakefile into source control and each team member would have a different Rakefile.</p>
+
+<p>So I started hunting for a solution.</p>
+
+<h2>Official Documentation is Misleading</h2>
+
+<p>The <a href="http://www.rubymotion.com/developer-center/guides/project-management/#_configuration">RubyMotion official project configuration documentation</a> states that it look for and use the first provisioning profile it finds on your computer. This is false though, at least when you have multiple profiles, because even if each of your profiles contains the device UID you're building to, this still won't work.</p>
+
+<h2>Existing Solutions Insufficient</h2>
+
+<p>The existing solutions are simply to explicitly refer to your provisioning profile in your Rakefile. That's OK for solo development (but still annoying), however it's not a good solution for team development.</p>
+
+<p>See this <a href="http://stackoverflow.com/questions/13539743/rubymotion-build-error-cant-find-a-provisioning-profile-named-mixios-tea">stackoverflow Discussion</a></p>
+
+<h2>My Solution</h2>
+
+<p>After a <a href="https://github.com/HipByte/RubyMotion/blob/master/lib/motion/project/config.rb">little light reading</a> I discovered that the RubyMotion build will check for a default profile named "iOS Team Provisioning Profile".</p>
+
+<p>So we simply need to create a new provisioning profile via the <a href="https://developer.apple.com/ios/manage/overview/index.action">iOS provisioning portal</a> named "iOS Team Provisioning Profile" and containing the device(s) we want to be able to run development builds on.</p>
+]]></content>
+  </entry>
+  
+</feed>

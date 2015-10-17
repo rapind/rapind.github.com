@@ -1,0 +1,341 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Better Authentication - Dave Rapin</title>
+  <meta name="author" content="Dave Rapin">
+
+  
+  <meta name="description" content="Since my last post on authentication and single sign-on I came across an incredibly clever little tool called PasswordMaker. What makes it so clever &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://rapind.github.com/blog/2010/12/11/better-authentication/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Dave Rapin" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-2450369-6']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Dave Rapin</a></h1>
+  
+    <h2>Mobile and Web Development</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:rapind.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="http://www.linkedin.com/in/rapind">LinkedIn</a></li>
+  <li><a href="https://github.com/rapind">Github</a></li>
+  <li><a href="http://pairshaped.ca">Pair Shaped</a></li>
+  <li><a href="http://syncroe.com">Syncroe</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Better Authentication</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-12-11T02:13:00-05:00" pubdate data-updated="true">Dec 11<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Since my last post on authentication and single sign-on I came across an incredibly clever little tool called PasswordMaker.</p>
+
+<p>What makes it so clever is that it changes practically nothing from the normal flow of entering a password and stores nothing locally (so it doesn&#8217;t matter if you change browser or computer). You type the same password for everything and it instead submits a unique and incredibly strong password for every site. This is done by creating a one-way hash. One-way hashes is also how we encrypt passwords on the backend of websites before storing them in the database. So basically you&#8217;re original password is getting hashed twice for most websites.</p>
+
+<p>How it works:</p>
+
+<p>You install the PasswordMaker extension for your browser of choice.
+You go to sign up for a new website service (or change your password for an existing one).
+You type your typical password, let&#8217;s say it&#8217;s &#8220;b@ng3r5&#8221;. You should still pick something fairly strong (mix of characters, numbers, symbols, etc.), but even if you didn&#8217;t you&#8217;re much better off than most.
+When you submit the sign up form, the PasswordMaker extension creates a hash using the data you&#8217;re entering combined with the domain of the website. In other words it&#8217;s creating an encrypted version of your real password. This encrypted password is what&#8217;s submitted to the website. It may end up being something like &#8220;4#ae2!9ljh2vk*8c$21h7wh%s$lz&#8221; for example.</p>
+
+<p>You come back to the site another day and are asked to login
+You type in the same typical password, &#8220;b@ng3r5&#8221; in this case.
+When you submit the login form, the PasswordMaker performs the hashing operation again, using the same password and the same domain. This means it will come up with exactly the same hash as it did when you signed up.
+The site&#8217;s server see your encrypted password, I.e. &#8220;4#ae2!9ljh2vk*8c$21h7wh%s$lz&#8221; which it then submits to it&#8217;s own authentication process (usually it also performs a one-way hash again using your password and a random string it generated when you initially signed up and compares that against the encrypted value it has stored against your account).</p>
+
+<p>Benefits:</p>
+
+<p>Some sites still store passwords in clear-text. You&#8217;re way safer if one of these sites is compromised since you&#8217;re password was already encrypted before it was sent to the site.
+Using the same password for everything in way safer now than it was without this encryption&#8230; it&#8217;s probably still a good idea to rotate passwords, but not as big of a deal as it was without the pre-encryption.
+We&#8217;re practically faking single sign-on.</p>
+
+<p>I still think there may be some potential problems that you need to keep in mind.</p>
+
+<p>If a clever hacker compromises a site that&#8217;s storing passwords in clear-text they could still potentially crack your password since it will stick out like a sore thumb within the rest of the cleartext passwords. Said hacker will know that yours is the only one that&#8217;s been encrypted and he may guess that it was encrypted using PasswordMaker. He would then know that your salt (part of the string being used to generate the hash) is the domain of the site and he can use that information to run dictionary attacks with the domain until he gets the same encrypted result.</p>
+
+<p>Obviously this is pretty unlikely and not worth the effort since there&#8217;s so many other passwords requiring no effort, but still using a strong password to begin with will make this practically impossible. The only way I see this happening is if someone is specifically targeting you and the added effort is really worth it&#8230; So maybe 1 chance in a google?</p>
+
+<p>I highly recommend you checkout this tool. It has multiple extensions / plugins for every major browser.</p>
+
+<p><a href="http://passwordmaker.org/">http://passwordmaker.org/</a></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Dave Rapin</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-12-11T02:13:00-05:00" pubdate data-updated="true">Dec 11<span>th</span>, 2010</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/authentication/'>Authentication</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://rapind.github.com/blog/2010/12/11/better-authentication/" data-via="rapind" data-counturl="http://rapind.github.com/blog/2010/12/11/better-authentication/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2010/11/24/authentication-slash-single-sign-on/" title="Previous Post: Authentication / Single Sign On">&laquo; Authentication / Single Sign On</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2011/01/18/tdd-bdd-and-false-assumptions/" title="Next Post: TDD, BDD, and False Assumptions">TDD, BDD, and False Assumptions &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/10/15/meteor-with-reactjs/">Meteor and React - Part 1</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/02/03/reactjs-with-coffeescript/">Using CoffeeScript with ReactJS</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/07/04/pair-programming-remotely-vps/">Pair Programming Remotely on a VPS</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/02/05/rubymotion-provisioning-profiles/">RubyMotion Provisioning Profiles</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/10/24/ios-development-with-ruby-motion/">iOS Development with Ruby Motion</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/rapind">@rapind</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'rapind',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("rapind", 3, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/rapind" class="twitter-follow-button" data-show-count="false">Follow @rapind</a>
+  
+</section>
+
+
+
+<section class="googleplus">
+  <h1>
+    <a href="https://plus.google.com/dave@rapin.com?rel=author">
+      <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
+      Google+
+    </a>
+  </h1>
+</section>
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - Dave Rapin -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'daverapin';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://rapind.github.com/blog/2010/12/11/better-authentication/';
+        var disqus_url = 'http://rapind.github.com/blog/2010/12/11/better-authentication/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

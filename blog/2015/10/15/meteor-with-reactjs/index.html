@@ -1,0 +1,585 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Meteor and React - Part 1 - Dave Rapin</title>
+  <meta name="author" content="Dave Rapin">
+
+  
+  <meta name="description" content="This is part one of a series of posts that go through creating a new web app with Meteor and React. Prerequisites Meteor
+Nodejs
+OSX, Linux, or Cygwin &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://rapind.github.com/blog/2015/10/15/meteor-with-reactjs/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Dave Rapin" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-2450369-6']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Dave Rapin</a></h1>
+  
+    <h2>Mobile and Web Development</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:rapind.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="http://www.linkedin.com/in/rapind">LinkedIn</a></li>
+  <li><a href="https://github.com/rapind">Github</a></li>
+  <li><a href="http://pairshaped.ca">Pair Shaped</a></li>
+  <li><a href="http://syncroe.com">Syncroe</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Meteor and React - Part 1</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-10-15T00:00:00-04:00" pubdate data-updated="true">Oct 15<span>th</span>, 2015</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>This is part one of a series of posts that go through creating a new web app with Meteor and React.</p>
+
+<h2>Prerequisites</h2>
+
+<ol>
+<li><a href="https://www.meteor.com/install">Meteor</a></li>
+<li><a href="https://nodejs.org/en/">Nodejs</a></li>
+<li>OSX, Linux, or Cygwin.</li>
+</ol>
+
+
+<h2>Why Metor?</h2>
+
+<p>We&#8217;re always on the lookout for new methodologies in the web stack, and Meteor is one we&#8217;ve been keeping an eye on for a while.
+Here&#8217;s what we like about it:</p>
+
+<ul>
+<li>Nodejs on the server performs significantly better than some other dynamic stacks like Ruby on Rails.</li>
+<li>Websockets consume significantly less bandwidth than REST since there is no need to send HTTP headers every time.</li>
+<li>No need to constantly customize APIs (also something GraphQL would solve).</li>
+<li>Responding to data changes is straightforward via pub / sub. With React this is even easier.</li>
+<li>Updating data is straightforward via Meteor methods.</li>
+</ul>
+
+
+<h2>Why React</h2>
+
+<p>We love React for it&#8217;s simplicity and always use it for our web UIs.
+Declaritive UI programming is where it&#8217;s at.</p>
+
+<p>Code next to Markup was a bad idea right?
+Not really.
+As it turns out, having your UI code in your views when they are small (components) makes a ton of sense.</p>
+
+<p>Don&#8217;t take our word for it though.
+<a href="https://facebook.github.io/react/docs/getting-started.html">Give it a whirl for yourself</a>
+There&#8217;s a decent chance you&#8217;ll agree.</p>
+
+<h2>The Project Requirements</h2>
+
+<p>We&#8217;re going to step through building a Hot or Not style of application tailored to sports plays.</p>
+
+<p>The three main components are:</p>
+
+<h4>Submit a Play</h4>
+
+<p>User should be able to submit a new play. The play will have a title, description, and Youtube URL.</p>
+
+<h4>Vote on Plays</h4>
+
+<p>User should be able to see two plays and vote for one of them.</p>
+
+<p>Once user has voted for a play, they will be replaced with two new plays that they can then vote on.</p>
+
+<p>There is no limit to the number of plays the user can vote on, however the user may not vote on the same play more than once.</p>
+
+<h4>Leaderboard</h4>
+
+<p>User should see a list of top ten plays with the most votes, ordered by number of votes descending.
+This list will update in real time as votes are added.</p>
+
+<h2>Getting Started</h2>
+
+<p>Create our project:</p>
+
+<pre><code>meteor create tehgosu
+</code></pre>
+
+<p>This creates a basic Meteor application that we can run right away:</p>
+
+<pre><code>cd tehgosu
+meteor
+</code></pre>
+
+<p>Then visit <a href="http://localhost:3000">http://localhost:3000</a></p>
+
+<h3>React and CoffeeScript</h3>
+
+<p>Before we can start working on any views, we need to install React since that&#8217;s what we&#8217;ll be using instead of Blaze.</p>
+
+<p>Adding libraries to Meteor is super simple:</p>
+
+<pre><code>meteor add react
+</code></pre>
+
+<p>We personally prefer CoffeeScript over JavaScript due to the readability of significant whitespace.
+There&#8217;s a popular opinion at the moment that CoffeeScript is obsolete now that we have ES6 and Babel.
+I disagree because I think browsers will eventually support <a href="https://brendaneich.com/2015/06/from-asm-js-to-webassembly/">WebAssembly</a>.
+Once they do we&#8217;ll see even more JavaScript alternatives.</p>
+
+<pre><code>meteor add coffeescript
+</code></pre>
+
+<p>Now we&#8217;ll need to do some standard tweaks in order to have React and CoffeeScript play nice without excessive amounts of syntax.
+First we&#8217;ll create a lib folder and add a component.coffee library to it.</p>
+
+<pre><code>mkdir lib
+touch lib/component.coffee
+</code></pre>
+
+<p>In component.coffee we&#8217;re going to add a function that we&#8217;ll be calling instead of React.createClass</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="vi">@Component =</span>
+</span><span class='line'>  <span class="nv">create: </span><span class="nf">(spec) -&gt;</span>
+</span><span class='line'>    <span class="nx">React</span><span class="p">.</span><span class="nx">createFactory</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">(</span><span class="nx">spec</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Notice the <strong>@</strong> symbol used to declare our Component object?
+CoffeeScript places our code in a closure so as not to pollute the global namespace.
+In Meteor we need to attach our object to the global namespace using <strong>this</strong> (@ = this.).
+This is a little counter intuitive compared to CommonJS style requires, and maybe some day we&#8217;ll have a better alternative.</p>
+
+<p>For now <strong>@Component</strong> makes our object accessible throughout the application.</p>
+
+<p>Now we can create a React component in CoffeeScript like so:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="nv">TestComponent = </span><span class="nx">Component</span><span class="p">.</span><span class="nx">create</span>
+</span><span class='line'>  <span class="nv">render: </span><span class="nf">-&gt;</span>
+</span><span class='line'>    <span class="nx">div</span> <span class="nv">className: </span><span class="s">&#39;test-component&#39;</span><span class="p">,</span>
+</span><span class='line'>      <span class="s">&#39;Test Component&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The equivalent in JSX without our library would look like this:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">TestComponent</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span>
+</span><span class='line'>  <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="p">(</span>
+</span><span class='line'>      <span class="o">&lt;</span><span class="nx">div</span> <span class="kr">class</span><span class="o">=</span><span class="s2">&quot;test-component&quot;</span><span class="o">&gt;</span>
+</span><span class='line'>        <span class="nx">Test</span> <span class="nx">Component</span>
+</span><span class='line'>      <span class="o">&lt;</span><span class="err">/div&gt;</span>
+</span><span class='line'>    <span class="p">);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Project Structure</h3>
+
+<p>Now is as good a time as any to setup our basic structure for the application.
+Meteor has a convention where any code that&#8217;s placed within a directory named <strong>client</strong> will only run on the client.
+And naturally code in a directory named <strong>server</strong> will only run on the server.</p>
+
+<p>We want the following directories under the root of the project:</p>
+
+<ul>
+<li>lib: Common library functions. These are loaded before the other directories.</li>
+<li>client: Code that should only be run on the client (browser).</li>
+<li>server: Code that should only be run on the server.</li>
+<li><p>public: Only served to the public. We&#8217;ll put our robots.txt and images in here.</p>
+
+<p>  mkdir lib client server public</p></li>
+</ul>
+
+
+<p>Let&#8217;s remove the initial files that meteor created. We don&#8217;t need them.</p>
+
+<pre><code>rm tehgosu.*
+</code></pre>
+
+<h3>Time to Write Some Code</h3>
+
+<p>Create a new HTML file in the client directory.
+Since we&#8217;re using React for our views, this will be the only HTML file we need.</p>
+
+<pre><code>vi client/index.html
+</code></pre>
+
+<p>In this HTML file we just need a div element which react will replace once it&#8217;s loaded.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;head&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;title&gt;</span>Teh Gosu<span class="nt">&lt;/title&gt;</span>
+</span><span class='line'><span class="nt">&lt;/head&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;body&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;app&quot;</span><span class="nt">&gt;</span>Loading...<span class="nt">&lt;/div&gt;</span>
+</span><span class='line'><span class="nt">&lt;/body&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now we need to attach our React views.
+Create a new CoffeeScript file in the client directory.</p>
+
+<pre><code>vi client/index.coffee
+</code></pre>
+
+<p>In this CoffeeScript file we load up our React views and attache them to the DOM.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="nx">Meteor</span><span class="p">.</span><span class="nx">startup</span> <span class="nf">-&gt;</span>
+</span><span class='line'>  <span class="nx">React</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span>
+</span><span class='line'>    <span class="nx">App</span><span class="p">({}),</span>
+</span><span class='line'>    <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span> <span class="s">&#39;app&#39;</span>
+</span><span class='line'>  <span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>We&#8217;re referencing an object called <strong>App</strong> within the Render method, so we need to build that.
+Create a new CoffeeScript file in the client directory for it.</p>
+
+<pre><code>vi client/app.coffee
+</code></pre>
+
+<p>Our new app.coffee is going to hold our top level React component code.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="p">{</span> <span class="nx">h1</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">DOM</span>
+</span><span class='line'>
+</span><span class='line'><span class="vi">@App = </span><span class="nx">Component</span><span class="p">.</span><span class="nx">create</span>
+</span><span class='line'>  <span class="nv">render: </span><span class="nf">-&gt;</span>
+</span><span class='line'>    <span class="nx">h1</span> <span class="p">{},</span>
+</span><span class='line'>      <span class="s">&#39;Teh Gosu!&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>We&#8217;re keeping it simple. All we&#8217;re doing is rendering an h1 tag with the text <strong>Teh Gosu!</strong>.
+Notice the <strong>@</strong> symbol prefix to the App declaration.
+Again this is because of CoffeeScript&#8217;s automatic closure and the fact that Meteor needs the object to be on <strong>this</strong> to be accessible outside the file.</p>
+
+<p>At this point we should have a working React + Meteor application. Run the server with:</p>
+
+<pre><code>meteor
+</code></pre>
+
+<p>Then visit <a href="http://localhost:3000">http://localhost:3000</a></p>
+
+<p>You should see <strong>Teh Gosu!</strong>.</p>
+
+<p>Your directory structure should be:</p>
+
+<pre><code>client
+  app.coffee
+  index.coffee
+  index.html
+lib
+  component.coffee
+server
+public
+</code></pre>
+
+<p>This concludes part one of our Meteor + React series.
+In part two we&#8217;ll add some data and the match view.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Dave Rapin</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-10-15T00:00:00-04:00" pubdate data-updated="true">Oct 15<span>th</span>, 2015</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/coffeescript/'>coffeescript</a>, <a class='category' href='/blog/categories/javascript/'>javascript</a>, <a class='category' href='/blog/categories/meteor/'>meteor</a>, <a class='category' href='/blog/categories/programming/'>programming</a>, <a class='category' href='/blog/categories/reactjs/'>reactjs</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://rapind.github.com/blog/2015/10/15/meteor-with-reactjs/" data-via="rapind" data-counturl="http://rapind.github.com/blog/2015/10/15/meteor-with-reactjs/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2015/02/03/reactjs-with-coffeescript/" title="Previous Post: Using CoffeeScript with ReactJS">&laquo; Using CoffeeScript with ReactJS</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/10/15/meteor-with-reactjs/">Meteor and React - Part 1</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/02/03/reactjs-with-coffeescript/">Using CoffeeScript with ReactJS</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/07/04/pair-programming-remotely-vps/">Pair Programming Remotely on a VPS</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/02/05/rubymotion-provisioning-profiles/">RubyMotion Provisioning Profiles</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/10/24/ios-development-with-ruby-motion/">iOS Development with Ruby Motion</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/rapind">@rapind</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'rapind',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("rapind", 3, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/rapind" class="twitter-follow-button" data-show-count="false">Follow @rapind</a>
+  
+</section>
+
+
+
+<section class="googleplus">
+  <h1>
+    <a href="https://plus.google.com/dave@rapin.com?rel=author">
+      <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
+      Google+
+    </a>
+  </h1>
+</section>
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - Dave Rapin -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'daverapin';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://rapind.github.com/blog/2015/10/15/meteor-with-reactjs/';
+        var disqus_url = 'http://rapind.github.com/blog/2015/10/15/meteor-with-reactjs/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

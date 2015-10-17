@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Backups | Dave Rapin]]></title>
+  <link href="http://rapind.github.com/blog/categories/backups/atom.xml" rel="self"/>
+  <link href="http://rapind.github.com/"/>
+  <updated>2015-10-17T13:08:35-04:00</updated>
+  <id>http://rapind.github.com/</id>
+  <author>
+    <name><![CDATA[Dave Rapin]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Backing up your MySQL Databases Offsite]]></title>
+    <link href="http://rapind.github.com/blog/2010/05/06/backing-up-your-mysql-databases-offsite/"/>
+    <updated>2010-05-06T08:40:00-04:00</updated>
+    <id>http://rapind.github.com/blog/2010/05/06/backing-up-your-mysql-databases-offsite</id>
+    <content type="html"><![CDATA[<p>I recently came across a nifty little tool called Tarsnap.</p>
+
+<p>From the Tarsnap home page:</p>
+
+<p>Tarsnap is a secure online backup service for BSD, Linux, OS X, Solaris, Cygwin, and can probably be compiled on many other UNIX-like operating systems. The Tarsnap client code provides a flexible and powerful command-line interface which can be used directly or via shell scripts.</p>
+
+<p>Here's a quick and easy guide to get you up and running backup up all of your MySQL databases.</p>
+
+<h3>Automate the MySQL Backup</h3>
+
+<ol>
+<li><p>In your home directory:
+<code>
+mkdir backups &amp;&amp; cd backups
+</code></p></li>
+<li><p>Download: <a href="http://sourceforge.net/projects/automysqlbackup/">http://sourceforge.net/projects/automysqlbackup/</a> to the backups directory you just created.</p></li>
+<li><p>Rename it:
+<code>
+mv automysqlbackup.sh.2.5 automysqlbackup.sh
+</code></p></li>
+<li><p>Make it executable:
+<code>
+chmod u+rwx automysqlbackup.sh
+</code></p></li>
+<li><p>Edit it:
+<code>
+nano automysqlbackup.sh
+</code></p></li>
+<li><p>Fill out your database name, password, and the names of the databases you want to backup.</p></li>
+<li><p>Look for the commented POSTBACKUP line. Add these two lines right below it (replace username with your username).
+<code>
+BACKUP_TIMESTAMP=$(date +"%m-%d-%Y_%T")
+POSTBACKUP="tarsnap -c -f databases.$BACKUP_TIMESTAMP /home/username/backups"
+</code></p></li>
+</ol>
+
+
+<h3>Install and Setup Tarsnap.</h3>
+
+<ol>
+<li><p>Follow the instructions on the Tarsnap getting started page: <a href="http://www.tarsnap.com/gettingstarted.html">http://www.tarsnap.com/gettingstarted.html</a></p></li>
+<li><p>You should have donwloaded, paid for, and installed Tarsnap before continuing.</p></li>
+<li><p>We're going to use the tarsnap sample config (cache dir and key location).
+<code>
+cd /usr/local/etc
+cp tarsnap.conf.sample tarsnap.conf
+</code></p></li>
+<li><p>Now run your backup script:
+<code>
+sudo ./automysqlbackup.sh
+</code></p></li>
+<li><p>Check to see if you're backup was created and stored remotely:
+<code>
+sudo tarsnap --list-archives
+</code></p></li>
+<li><p>Now we're going to create a cronjob to run the script on a daily basis (or you could move it to your /etc/cron.daily).
+```
+sudo crontab -e</p>
+
+<h1>backup the databases every day at 2:30 AM</h1>
+
+<p>30 2 * * * /home/deploy/backups/automysqlbackup.sh > /home/deploy/cron.log
+```</p></li>
+</ol>
+
+
+<p>Now you're databases are being backed up daily on a rotation keeping weekly and monthly dumps and storing them both on and off-site (encrypted).</p>
+]]></content>
+  </entry>
+  
+</feed>

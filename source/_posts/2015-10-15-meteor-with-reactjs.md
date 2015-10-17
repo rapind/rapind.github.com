@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Let's Build Something With Meteor and React - Part 1"
+title: "Meteor and React - Part 1"
 date: 2015-10-15
 comments: true
 categories: [programming, javascript, meteor, reactjs, coffeescript]
@@ -98,9 +98,11 @@ First we'll create a lib folder and add a component.coffee library to it.
 
 In component.coffee we're going to add a function that we'll be calling instead of React.createClass
 
-    @Component =
-      create: (spec) ->
-        React.createFactory React.createClass(spec)
+```coffeescript
+@Component =
+  create: (spec) ->
+    React.createFactory React.createClass(spec)
+```
 
 Notice the __@__ symbol used to declare our Component object?
 CoffeeScript places our code in a closure so as not to pollute the global namespace.
@@ -111,22 +113,26 @@ For now __@Component__ makes our object accessible throughout the application.
 
 Now we can create a React component in CoffeeScript like so:
 
-    TestComponent = Component.create
-      render: ->
-        div className: 'test-component',
-          'Test Component'
+```coffeescript
+TestComponent = Component.create
+  render: ->
+    div className: 'test-component',
+      'Test Component'
+```
 
 The equivalent in JSX without our library would look like this:
 
-    TestComponent = React.createClass({
-      render: function() {
-        return (
-          <div class="test-component">
-            Test Component
-          </div>
-        );
-      }
-    });
+```javascript
+TestComponent = React.createClass({
+  render: function() {
+    return (
+      <div class="test-component">
+        Test Component
+      </div>
+    );
+  }
+});
+```
 
 ### Project Structure
 
@@ -156,13 +162,15 @@ Since we're using React for our views, this will be the only HTML file we need.
 
 In this HTML file we just need a div element which react will replace once it's loaded.
 
-    <head>
-      <title>Teh Gosu</title>
-    </head>
+```html
+<head>
+  <title>Teh Gosu</title>
+</head>
 
-    <body>
-      <div id="app">Loading...</div>
-    </body>
+<body>
+  <div id="app">Loading...</div>
+</body>
+```
 
 Now we need to attach our React views.
 Create a new CoffeeScript file in the client directory.
@@ -171,11 +179,13 @@ Create a new CoffeeScript file in the client directory.
 
 In this CoffeeScript file we load up our React views and attache them to the DOM.
 
-    Meteor.startup ->
-      React.render(
-        App({}),
-        document.getElementById 'app'
-      )
+```coffeescript
+Meteor.startup ->
+  React.render(
+    App({}),
+    document.getElementById 'app'
+  )
+```
 
 We're referencing an object called __App__ within the Render method, so we need to build that.
 Create a new CoffeeScript file in the client directory for it.
@@ -184,12 +194,14 @@ Create a new CoffeeScript file in the client directory for it.
 
 Our new app.coffee is going to hold our top level React component code.
 
-    { h1 } = React.DOM
+```coffeescript
+{ h1 } = React.DOM
 
-    @App = Component.create
-      render: ->
-        h1 {},
-          'Teh Gosu!'
+@App = Component.create
+  render: ->
+    h1 {},
+      'Teh Gosu!'
+```
 
 We're keeping it simple. All we're doing is rendering an h1 tag with the text __Teh Gosu!__.
 Notice the __@__ symbol prefix to the App declaration.

@@ -16,11 +16,11 @@ Here's a quick and easy guide to get you up and running backup up all of your My
 
 ### Automate the MySQL Backup
 
-1. In your home directory: 
+1. In your home directory:
   ```
   mkdir backups && cd backups
   ```
- 
+
 2. Download: <http://sourceforge.net/projects/automysqlbackup/> to the backups directory you just created.
 
 3. Rename it:
@@ -40,7 +40,7 @@ Here's a quick and easy guide to get you up and running backup up all of your My
 
 6. Fill out your database name, password, and the names of the databases you want to backup.
 
-7. Look for the commented POSTBACKUP line. Add these two lines right below it (replace username with your username). 
+7. Look for the commented POSTBACKUP line. Add these two lines right below it (replace username with your username).
 ```
 BACKUP_TIMESTAMP=$(date +"%m-%d-%Y_%T")
 POSTBACKUP="tarsnap -c -f databases.$BACKUP_TIMESTAMP /home/username/backups"
@@ -52,7 +52,7 @@ POSTBACKUP="tarsnap -c -f databases.$BACKUP_TIMESTAMP /home/username/backups"
 
 2. You should have donwloaded, paid for, and installed Tarsnap before continuing.
 
-3. We're going to use the tarsnap sample config (cache dir and key location). 
+3. We're going to use the tarsnap sample config (cache dir and key location).
   ```
   cd /usr/local/etc
   cp tarsnap.conf.sample tarsnap.conf
